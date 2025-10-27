@@ -2,6 +2,7 @@ import * as React from 'react';
 import TopAppBar from './components/TopAppBar';
 import FooterBar from './components/FooterBar';
 import Box from '@mui/material/Box';
+import Sidebar from './components/Sidebar';
 
 export default function App() {
   return (
@@ -9,7 +10,7 @@ export default function App() {
       <TopAppBar />
       {/* محتوى الصفحات */}
       <Box sx={{ flex: 1 }}>
-        {/* ... */}
+        <Sidebar/>
       </Box>
       <FooterBar />
     </Box>
