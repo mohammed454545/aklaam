@@ -9,26 +9,29 @@ export default function Sidebar() {
   return (
     <Box
       sx={{
-        width: 250,
-        bgcolor: '#f5f5f5',
+        width: 300,
+        bgcolor: '#fff',
         padding: 2,
         display: 'flex',
         flexDirection: 'column',
-        position: 'fixed',
         height: '100vh',
-        boxShadow: 3, // لإضافة ظل خفيف للشريط الجانبي
       }}
     >
-      {/* الصورة */}
-      {/* <Avatar alt="Article Image" src={articleImage} sx={{ width: 80, height: 80, marginBottom: 2 }} /> */}
-
+      
+      <Box
+      sx={{boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)',borderRadius:'10px'}}
+      >
+        {/* الصورة */}
+      <Avatar variant="square" alt="Article Image" src={"/Images/r1.png"} sx={{ width: '100%', height: "auto", marginBottom: 2 }} />
+      <Box sx={{p:'10px'}}>
+        
       {/* العنوان */}
-      <Typography variant="h6" color="primary" sx={{ marginBottom: 1 }}>
+      <Typography  color="primary" sx={{ marginBottom: 1 ,fontSize:'16px',fontWeight:'600' }}>
         اساسيات تطوير تطبيقات الهاتف
       </Typography>
 
       {/* الوصف */}
-      <Typography variant="body2" color="textSecondary" sx={{ marginBottom: 2 }}>
+      <Typography variant="body2" color="textSecondary" sx={{ marginBottom: 2,textAlign:'justify' }}>
         في هذا المقال ستتعلم أساسيات تطوير تطبيقات الهاتف حيث تكون تطبيقات الهاتف من نوعين...
       </Typography>
 
@@ -39,36 +42,11 @@ export default function Sidebar() {
       <Typography variant="caption" color="textSecondary" sx={{ marginBottom: 2 }}>
         18/10/2025
       </Typography>
+      </Box>
+      </Box>
 
-      <Divider sx={{ my: 2 }} />
 
-      {/* القوائم الجانبية */}
-      <List>
-        <ListItem button>
-          <ListItemIcon>
-            <Home />
-          </ListItemIcon>
-          <ListItemText primary="الرئيسية" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <Category />
-          </ListItemIcon>
-          <ListItemText primary="الفئات" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <Info />
-          </ListItemIcon>
-          <ListItemText primary="عن التطبيق" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <Phone />
-          </ListItemIcon>
-          <ListItemText primary="اتصل بنا" />
-        </ListItem>
-      </List>
+    
     </Box>
   );
 }

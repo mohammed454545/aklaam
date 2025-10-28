@@ -1,0 +1,89 @@
+import * as React from 'react';
+import { Box, Typography, Card, CardContent, CardMedia, Rating, Chip, Button, TextField } from '@mui/material';
+import { Link } from 'react-router-dom'; // استخدام Link من react-router-dom
+
+const articles = [
+  {
+    id: 1,
+    title: 'اساسيات تطوير تطبيقات الهاتف',
+    description: 'في هذا المقال ستتعلم أساسيات تطوير تطبيقات الهاتف حيث تكون تطبيقات الهاتف من نوعين...',
+    date: '18/10/2025',
+    image: '/path/to/image.jpg', // استبدل بالمسار الصحيح للصورة
+    category: 'تقنية',
+    rating: 4,
+  },
+  {
+    id: 2,
+    title: 'تطوير التطبيقات الحديثة',
+    description: 'هذا المقال يشرح كيف يمكن تطوير التطبيقات الحديثة باستخدام أحدث التقنيات...',
+    date: '20/10/2025',
+    image: '/path/to/image.jpg', // استبدل بالمسار الصحيح للصورة
+    category: 'ألعاب',
+    rating: 5,
+  },
+  {
+    id: 3,
+    title: 'كيفية بناء واجهات مستخدم مبتكرة',
+    description: 'نصائح وأدوات لإنشاء واجهات مستخدم حديثة وجميلة باستخدام أدوات تطوير الويب.',
+    date: '22/10/2025',
+    image: '/path/to/image.jpg', // استبدل بالمسار الصحيح للصورة
+    category: 'برامج',
+    rating: 3,
+  },
+];
+
+export default function ArticleList() {
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {/* شريط البحث وزر إنشاء مقال */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
+        <TextField
+          variant="outlined"
+          size="small"
+          placeholder="بحث..."
+          sx={{ width: 300 }}
+        />
+        <Link to="/create-article" style={{ textDecoration: 'none' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+            }}
+          >
+            إضافة مقال
+          </Button>
+        </Link>
+      </Box>
+
+      {/* عرض المقالات */}
+      {articles.map((article) => (
+        <Card key={article.id} sx={{ display: 'flex', flexDirection: 'row', padding: 2, boxShadow: 3 }}>
+          <CardMedia
+            component="img"
+            sx={{ width: 150, height: 100, objectFit: 'cover' }}
+            image={article.image}
+            alt={article.title}
+          />
+          <Box sx={{ flex: 1, paddingLeft: 2 }}>
+            <Typography variant="h6" color="primary" gutterBottom>
+              <Link to={`/article/${article.id}`} style={{ textDecoration: 'none', color: '#6f2dbd' }}>
+                {article.title}
+              </Link>
+            </Typography>
+            <Typography variant="body2" color="textSecondary" paragraph>
+              {article.description}
+            </Typography>
+            <Rating name="read-only" value={article.rating} readOnly sx={{ marginBottom: 2 }} />
+            <Typography variant="caption" color="textSecondary">
+              {article.date}
+            </Typography>
+            <Chip label={article.category} color="primary" size="small" sx={{ marginTop: 1 }} />
+          </Box>
+        </Card>
+      ))}
+    </Box>
+  );
+}
