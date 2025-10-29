@@ -1,5 +1,15 @@
 import * as React from 'react';
-import { Box, TextField, Button, Typography, IconButton, List, ListItem, ListItemText, Divider } from '@mui/material';
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  IconButton,
+  Card,
+  CardContent,
+  CardActions,
+  Tooltip,
+} from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 
 const categories = [
@@ -16,9 +26,8 @@ export default function Categories() {
 
   const handleAddCategory = () => {
     if (newCategory.trim()) {
-      const newId = categoryList.length + 1;
-      const newCategoryObject = { id: newId, name: newCategory };
-      setCategoryList([...categoryList, newCategoryObject]);
+      const newId = Math.max(0, ...categoryList.map(c => c.id)) + 1; // تجنب تكرار id بعد الحذف
+      setCategoryList([...categoryList, { id: newId, name: newCategory.trim() }]);
       setNewCategory('');
     }
   };
@@ -29,68 +38,94 @@ export default function Categories() {
 
   const handleEditCategory = (id) => {
     const newCategoryName = prompt('أدخل اسم الفئة الجديدة');
-    if (newCategoryName) {
-      setCategoryList(categoryList.map(category => category.id === id ? { ...category, name: newCategoryName } : category));
+    if (newCategoryName?.trim()) {
+      setCategoryList(categoryList.map(category =>
+        category.id === id ? { ...category, name: newCategoryName.trim() } : category
+      ));
     }
   };
 
   return (
-    <Box sx={{ maxWidth: 600, margin: '0 auto', padding: 3, bgcolor: '#fff', borderRadius: 2, boxShadow: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        إدارة الفئات
-      </Typography>
+    <Box
+      sx={{
+        maxWidth: 1100,
+        mx: 'auto',
+        my:'140px',
+        p: 3,
+        bgcolor: '#fff',
+        borderRadius: 2,
+        // boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)'
+      }}
+    >
+  
 
-      {/* شريط البحث وزر إضافة فئة جديدة */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
+      {/* إضافة فئة جديدة */}
+      <Box sx={{ display: 'flex', gap: 2, mb: 3, }}>
         <TextField
           variant="outlined"
           size="small"
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}
           placeholder="أدخل فئة جديدة"
-          sx={{ width: '75%' }}
+          sx={{ flex: '1 1 260px', minWidth: 260 }}
         />
         <Button
           variant="contained"
-          color="primary"
-          sx={{ width: '20%' }}
+          color="secondary"
           onClick={handleAddCategory}
+          sx={{ flex: '0 0 140px' ,color:'white',fontWeight:'600'}}
         >
           إضافة فئة
         </Button>
       </Box>
 
-      {/* قائمة الفئات */}
-      <List>
+      {/* شبكة كروت بالفلكس */}
+      <Box
+        sx={{
+          display: 'flex',
+          // flexWrap: 'wrap',
+          flexDirection:'column',
+          gap: "10px",
+          alignItems: 'stretch',
+        }}
+      >
         {categoryList.map((category) => (
-          <Box key={category.id}>
-            <ListItem
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <ListItemText primary={category.name} />
-              <Box sx={{ display: 'flex', gap: 1 }}>
-                <IconButton
-                  color="primary"
-                  onClick={() => handleEditCategory(category.id)}
-                >
+          <Card
+            key={category.id}
+            sx={{
+              minWidth: 220,
+              // maxWidth: 320,
+              display: 'flex',
+              // flexDirection: 'column',
+              borderRadius: '10px',
+              boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)',
+              alignContent:'space-between',
+              justifyContent:'space-between'
+
+              
+            }}
+          >
+            <CardContent>
+              <Typography variant="h6" fontWeight={600} >
+                {category.name}
+              </Typography>
+            </CardContent>
+
+            <CardActions sx={{ mt: 'auto', justifyContent: 'flex-end', gap: 0.5 }}>
+              <Tooltip title="تعديل">
+                <IconButton color="primary" onClick={() => handleEditCategory(category.id)}>
                   <Edit />
                 </IconButton>
-                <IconButton
-                  color="error"
-                  onClick={() => handleDeleteCategory(category.id)}
-                >
+              </Tooltip>
+              <Tooltip title="حذف">
+                <IconButton color="error" onClick={() => handleDeleteCategory(category.id)}>
                   <Delete />
                 </IconButton>
-              </Box>
-            </ListItem>
-            <Divider />
-          </Box>
+              </Tooltip>
+            </CardActions>
+          </Card>
         ))}
-      </List>
+      </Box>
     </Box>
   );
 }

@@ -12,28 +12,25 @@ const stats = [
 
 export default function Statistics() {
   return (
-    <Box sx={{ padding: 3, bgcolor: '#fff', borderRadius: 2, boxShadow: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        الإحصائيات
-      </Typography>
+    <Box sx={{m:'auto',my:'140px',width:'1100px', padding: 3, bgcolor: '#fff', borderRadius: 2}}>
+    
       
       {/* عرض الإحصائيات باستخدام Grid */}
-      <Grid container spacing={2}>
+      <Box sx={{display:'flex',flexWrap:'wrap',gap:'10px'}}>
         {stats.map((stat, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card sx={{ bgcolor: '#f9f9f9', boxShadow: 1 }}>
-              <CardContent>
-                <Typography variant="h6" color="primary" gutterBottom>
+
+            <Card sx={{p:'10px',py:'30px',borderRadius:'10px', bgcolor: '#fff', boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)' ,width:'520px'}}>
+              <Box sx={{}}>
+                <Typography sx={{textAlign:'center',fontSize:'20px',fontWeight:'600'}} variant="h6" color="primary" gutterBottom>
                   {stat.title}
                 </Typography>
-                <Typography variant="h5" color="textPrimary">
+                <Typography sx={{textAlign:'center',fontSize:'30px',fontWeight:'900'}} variant="h5" color="secondary">
                   {stat.value}
                 </Typography>
-              </CardContent>
+              </Box>
             </Card>
-          </Grid>
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 }

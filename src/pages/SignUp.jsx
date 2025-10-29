@@ -29,16 +29,15 @@ export default function SignUp() {
     <Box
       sx={{
         maxWidth: 600,
-        margin: '0 auto',
+        m:'auto',
+        my:'140px',
         padding: 3,
         bgcolor: '#fff',
-        borderRadius: 2,
-        boxShadow: 2,
+        borderRadius: "10px",
+        boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)'
       }}
     >
-      <Typography variant="h4" gutterBottom>
-        إنشاء حساب
-      </Typography>
+      
       
       <form onSubmit={handleSubmit}>
         {/* رابط صورة الملف الشخصي */}
@@ -116,9 +115,9 @@ export default function SignUp() {
         <Button
           type="submit"
           variant="contained"
-          color="primary"
+          color="secondary"
           fullWidth
-          sx={{ padding: '10px' }}
+          sx={{ padding: '10px' ,color:'white',fontWeight:'600' }}
         >
           إنشاء حساب
         </Button>

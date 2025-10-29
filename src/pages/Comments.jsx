@@ -1,8 +1,21 @@
 import * as React from 'react';
-import { Box, Typography, TextField, Button, IconButton, List, ListItem, ListItemText, Divider } from '@mui/material';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  IconButton,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Avatar,
+  Chip,
+  Tooltip,
+} from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 
-// نموذج للتعليقات (يمكنك استبداله ببيانات حقيقية من API أو قاعدة بيانات)
+// نموذج للتعليقات (استبدله لاحقاً بمصدر حقيقي)
 const comments = [
   { id: 1, user: 'علي عباس', content: 'محتوى التعليق 1', article: 'مقال تعلم البرمجة' },
   { id: 2, user: 'محمد سعيد', content: 'محتوى التعليق 2', article: 'مقال تعلم البرمجة' },
@@ -13,83 +26,109 @@ export default function Comments() {
   const [newComment, setNewComment] = React.useState('');
   const [commentList, setCommentList] = React.useState(comments);
 
+  const nextId = React.useCallback(
+    () => Math.max(0, ...commentList.map((c) => c.id)) + 1,
+    [commentList]
+  );
+
   const handleAddComment = () => {
-    if (newComment.trim()) {
-      const newId = commentList.length + 1;
-      const newCommentObject = { id: newId, user: 'علي سلمان', content: newComment, article: 'مقال تعلم البرمجة' };
-      setCommentList([...commentList, newCommentObject]);
-      setNewComment('');
-    }
+    if (!newComment.trim()) return;
+    const newCommentObject = {
+      id: nextId(),
+      user: 'علي سلمان',
+      content: newComment.trim(),
+      article: 'مقال تعلم البرمجة',
+    };
+    setCommentList((prev) => [...prev, newCommentObject]);
+    setNewComment('');
   };
 
   const handleDeleteComment = (id) => {
-    setCommentList(commentList.filter(comment => comment.id !== id));
+    setCommentList((prev) => prev.filter((c) => c.id !== id));
   };
 
   const handleEditComment = (id) => {
     const newContent = prompt('أدخل المحتوى الجديد للتعليق');
-    if (newContent) {
-      setCommentList(commentList.map(comment => comment.id === id ? { ...comment, content: newContent } : comment));
+    if (newContent?.trim()) {
+      setCommentList((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, content: newContent.trim() } : c))
+      );
     }
   };
 
+  const getInitial = (name = '') => (name.trim() ? name.trim()[0] : '?');
+
   return (
-    <Box sx={{ maxWidth: 600, margin: '0 auto', padding: 3, bgcolor: '#fff', borderRadius: 2, boxShadow: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        التعليقات
-      </Typography>
+    <Box
+      sx={{
+        maxWidth: 1100,
+        mx: 'auto',
+        p: 3,
+        bgcolor: '#fff',
+        my:'140px'
+      }}
+    >
 
-      {/* شريط إضافة تعليق جديد */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
-        <TextField
-          variant="outlined"
-          size="small"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="أدخل تعليقك هنا..."
-          sx={{ width: '80%' }}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ width: '15%' }}
-          onClick={handleAddComment}
-        >
-          إضافة تعليق
-        </Button>
-      </Box>
 
-      {/* قائمة التعليقات */}
-      <List>
-        {commentList.map((comment) => (
-          <Box key={comment.id}>
-            <ListItem
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <ListItemText primary={`${comment.user}: ${comment.content}`} secondary={`مقال: ${comment.article}`} />
-              <Box sx={{ display: 'flex', gap: 1 }}>
-                <IconButton
-                  color="primary"
-                  onClick={() => handleEditComment(comment.id)}
-                >
-                  <Edit />
-                </IconButton>
-                <IconButton
-                  color="error"
-                  onClick={() => handleDeleteComment(comment.id)}
-                >
-                  <Delete />
-                </IconButton>
-              </Box>
-            </ListItem>
-            <Divider />
-          </Box>
+      {/* شبكة الكروت بالفلكس */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection:'column',
+          gap: '10px',
+        }}
+      >
+        {commentList.map((c) => (
+          <Card
+            key={c.id}
+            sx={{
+              minWidth: 260,
+              display: 'flex',
+              flexDirection: 'column',
+              borderRadius: 3,
+              boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)',
+              transition: 'transform 120ms ease, box-shadow 120ms ease',
+            }}
+          >
+            <CardHeader
+              avatar={<Avatar>{getInitial(c.user)}</Avatar>}
+              title={
+                <Typography variant="subtitle1" fontWeight={700}>
+                  {c.user}
+                </Typography>
+              }
+              subheader={
+                <Chip
+                  label={` ${c.article}`}
+                  size="small"
+                  sx={{ direction: 'rtl', mt: 0.5 }}
+                />
+              }
+              action={
+                <Box >
+                  
+                  <Tooltip title="حذف">
+                    <IconButton color="error" onClick={() => handleDeleteComment(c.id)}>
+                      <Delete />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+              }
+              sx={{ pb: 0 }}
+            />
+
+            <CardContent sx={{ pt: 1 }}>
+              <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.9 }}>
+                {c.content}
+              </Typography>
+            </CardContent>
+
+            <CardActions sx={{ mt: 'auto' }}>
+              {/* مساحة لأزرار إضافية لاحقًا (إعجاب/رد إلخ) */}
+            </CardActions>
+          </Card>
         ))}
-      </List>
+      </Box>
     </Box>
   );
 }

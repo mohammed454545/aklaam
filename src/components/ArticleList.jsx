@@ -38,16 +38,20 @@ export default function ArticleList() {
       {/* شريط البحث وزر إنشاء مقال */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
         <TextField
+        
           variant="outlined"
           size="small"
           placeholder="بحث..."
-          sx={{ width: 300 }}
+          sx={{ width: 300 ,border:'none',outline:'nobe' ,borderRadius:'10px',boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)' }}
         />
         <Link to="/create-article" style={{ textDecoration: 'none' }}>
           <Button
             variant="contained"
-            color="primary"
+            color="secondary"
+            
             sx={{
+              color:'white',
+              fontWeight:'600',
               display: 'flex',
               alignItems: 'center',
               gap: 1,
@@ -60,11 +64,11 @@ export default function ArticleList() {
 
       {/* عرض المقالات */}
       {articles.map((article) => (
-        <Card key={article.id} sx={{ display: 'flex', flexDirection: 'row', padding: 2, boxShadow: 3 }}>
+        <Card key={article.id} sx={{position:'relative', display: 'flex', flexDirection: 'row', boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)' ,borderRadius:'10px'}}>
           <CardMedia
             component="img"
-            sx={{ width: 150, height: 100, objectFit: 'cover' }}
-            image={article.image}
+            sx={{ width: "250px", height: "100%" }}
+            image={'/Images/r1.png'}
             alt={article.title}
           />
           <Box sx={{ flex: 1, paddingLeft: 2 }}>
@@ -76,11 +80,14 @@ export default function ArticleList() {
             <Typography variant="body2" color="textSecondary" paragraph>
               {article.description}
             </Typography>
-            <Rating name="read-only" value={article.rating} readOnly sx={{ marginBottom: 2 }} />
-            <Typography variant="caption" color="textSecondary">
+            <Box sx={{position:'absolute',width:'60%',bottom:'10px',right:'5%',display:'flex',justifyContent:'space-between'}}>
+              <Typography variant="caption" color="textSecondary">
               {article.date}
             </Typography>
-            <Chip label={article.category} color="primary" size="small" sx={{ marginTop: 1 }} />
+              <Rating name="read-only" value={article.rating} readOnly  />
+            
+            <Chip label={article.category} color="primary" size="small"  />
+            </Box>
           </Box>
         </Card>
       ))}

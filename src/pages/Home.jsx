@@ -5,15 +5,11 @@ import Box from '@mui/material/Box';
 
 export default function Home() {
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      {/* الشريط الجانبي */}
-      <Sidebar />
-
-      {/* المحتوى الرئيسي */}
-      <Box >
+    <Box sx={{ display: 'flex',maxWidth:'1192px',width:'100%',flexWrap:'wrap',m:'auto',my:'150px',gap:'80px' }}>
+      
         {/* قائمة المقالات */}
         <ArticleList />
-      </Box>
+      <Sidebar />
     </Box>
   );
 }

@@ -25,17 +25,15 @@ export default function Login() {
     <Box
       sx={{
         maxWidth: 600,
-        margin: '0 auto',
+        m:'auto',
+        my:'140px',
         padding: 3,
         bgcolor: '#fff',
-        borderRadius: 2,
-        boxShadow: 2,
+        borderRadius: "10px",
+        boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)'
       }}
     >
-      <Typography variant="h4" gutterBottom>
-        تسجيل الدخول
-      </Typography>
-
+    
       <form onSubmit={handleSubmit}>
         {/* البريد الإلكتروني */}
         <TextField
@@ -65,9 +63,9 @@ export default function Login() {
         <Button
           type="submit"
           variant="contained"
-          color="primary"
+          color="secondary"
           fullWidth
-          sx={{ padding: '10px' }}
+          sx={{ padding: '10px' ,color:'white',fontWeight:'600' }}
         >
           تسجيل الدخول
         </Button>

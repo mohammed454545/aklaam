@@ -25,23 +25,18 @@ export default function TopAppBar() {
       color="transparent"
       elevation={0}
       sx={{
+        position: 'fixed',
+        inset: '0 0 auto 0',             // تعادل: top:auto; right:0; bottom:0; left:0
         px: '5%',
         bgcolor: '#fff',
         borderBottom: '2px solid #eee',
         boxShadow: '0 4px 4px rgba(0, 0, 0, 0.1)',
+        zIndex: (t) => t.zIndex.appBar + 1,
       }}
     >
       <Toolbar disableGutters sx={{ minHeight: 70, display: 'flex', justifyContent: 'space-between' }}>
         
-        {/* الشعار يظهر فقط في الشاشات الكبيرة */}
-        <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: 4 }}>
-          <Box
-            component="img"
-            src={logo}
-            alt="Aklaam Logo"
-            sx={{ height: 55, width: 'auto', display: 'block' }}
-          />
-        </Box>
+
 
         {/* زر القائمة المنسدلة في الشاشات الصغيرة */}
         <IconButton
@@ -55,6 +50,16 @@ export default function TopAppBar() {
 
         {/* الروابط في الشاشات الكبيرة */}
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: 4 }}>
+            <Link
+    to="/"
+  >
+<Box
+            component="img"
+            src={logo}
+            alt="Aklaam Logo"
+            sx={{ height: 55, width: 'auto', display: 'block' }}
+          />
+  </Link>
           <Link
             to="/categories"
             style={{
@@ -97,29 +102,30 @@ export default function TopAppBar() {
           </Link>
         </Box>
 
-        {/* الروابط في الشاشات الصغيرة */}
-        <Box sx={{ display: { xs: 'flex', sm: 'none' }, alignItems: 'center', gap: 4 }}>
-          <Link
-            to="/signup"
-            style={{
-              color: '#6f2dbd',
-              fontWeight: 500,
-              textDecoration: 'none',
-            }}
-          >
-            إنشاء حساب
-          </Link>
-          <Link
-            to="/login"
-            style={{
-              color: '#6f2dbd',
-              fontWeight: 500,
-              textDecoration: 'none',
-            }}
-          >
-            تسجيل الدخول
-          </Link>
-        </Box>
+      
+        <Box
+  sx={{
+    display: 'flex',          // مهم
+    alignItems: 'center',
+    gap: 4,                   // أو استخدم columnGap: 4
+    flexWrap: 'wrap',         // اختياري لو ممكن يلفّ في الشاشات الصغيرة
+  }}
+>
+  <Link
+    to="/signup"
+    style={{ color: '#6f2dbd', fontWeight: 500, textDecoration: 'none' }}
+  >
+    إنشاء حساب
+  </Link>
+
+  <Link
+    to="/login"
+    style={{ color: '#6f2dbd', fontWeight: 500, textDecoration: 'none' }}
+  >
+    تسجيل الدخول
+  </Link>
+</Box>
+
 
       </Toolbar>
 
@@ -131,8 +137,16 @@ export default function TopAppBar() {
       >
         <Box sx={{ width: 250, padding: 2 }}>
           {/* الشعار في Drawer */}
-          <Box component="img" src={logo} alt="Aklaam Logo" sx={{ height: 50, width: 'auto', display: 'block', marginBottom: 2 }} />
-          
+          <Link
+    to="/"
+  >
+<Box
+            component="img"
+            src={logo}
+            alt="Aklaam Logo"
+            sx={{ height: 55, width: 'auto', display: 'block' }}
+          />
+  </Link>
           <List>
             <ListItem button component={Link} to="/categories">
               <CategoryIcon sx={{ marginRight: 2 }} />

@@ -13,8 +13,8 @@ export default function Sidebar() {
         bgcolor: '#fff',
         padding: 2,
         display: 'flex',
+        gap:'40px',
         flexDirection: 'column',
-        height: '100vh',
       }}
     >
       
@@ -45,7 +45,35 @@ export default function Sidebar() {
       </Box>
       </Box>
 
+<Box
+      sx={{boxShadow: '-4px 4px 10px rgba(0, 0, 0, 0.1)',p:'10px',borderRadius:'10px'}}
+      >
+        <Typography   sx={{ marginBottom: 1 ,fontSize:'16px',fontWeight:'600' }}>
+        الفئات
+      </Typography>
+      <List sx={{p:'10px'}}>
+        
+      {/* العنوان */}
+      <ListItem   sx={{ marginBottom: 1 ,fontSize:'16px',fontWeight:'600' }}>
+      تقنية
+      </ListItem>
 
+      <ListItem   sx={{ marginBottom: 1 ,fontSize:'16px',fontWeight:'600' }}>
+        برامج
+      </ListItem>
+      <ListItem   sx={{ marginBottom: 1 ,fontSize:'16px',fontWeight:'600' }}>
+      العاب
+      </ListItem>
+      <ListItem   sx={{ marginBottom: 1 ,fontSize:'16px',fontWeight:'600' }}>
+        أخبار
+      </ListItem>
+
+    
+
+    
+    
+      </List>
+      </Box>
     
     </Box>
   );
