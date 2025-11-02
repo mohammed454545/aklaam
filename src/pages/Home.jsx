@@ -1,15 +1,28 @@
 import * as React from 'react';
-import Sidebar from '../components/Sidebar'; // تأكد من أنك أنشأت هذا الملف
-import ArticleList from '../components/ArticleList'; // تأكد من أنك أنشأت هذا الملف
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
+import SafePage from '../components/SafePage';
+import Sidebar from '../components/Sidebar';
+import ArticleList from '../components/ArticleList';
 
 export default function Home() {
   return (
-    <Box sx={{ display: 'flex',maxWidth:'1192px',width:'100%',flexWrap:'wrap',m:'auto',my:'150px',gap:'80px' }}>
-      
-        {/* قائمة المقالات */}
-        <ArticleList />
-      <Sidebar />
-    </Box>
+    <SafePage maxWidth="lg">
+      <Box dir="rtl"
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: { xs: 3, md: 4 },
+          alignItems: 'stretch',
+          width: '100%',
+        }}
+      >
+        <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 0' }, minWidth: 0 }}>
+          <ArticleList />
+        </Box>
+        <Box sx={{ flex: { xs: '1 1 100%', md: '0 0 320px' }, minWidth: 0 }}>
+          <Sidebar />
+        </Box>
+      </Box>
+    </SafePage>
   );
 }

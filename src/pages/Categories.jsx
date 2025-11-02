@@ -60,7 +60,7 @@ export default function Categories() {
   
 
       {/* إضافة فئة جديدة */}
-      <Box sx={{ display: 'flex', gap: 2, mb: 3, }}>
+      <Box sx={{ display: 'flex',flexWrap:'wrap', gap: 2, mb: 3, }}>
         <TextField
           variant="outlined"
           size="small"
